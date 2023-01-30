@@ -15,7 +15,7 @@ namespace UpSchool.SimplePasswordGenerator
         private const string numbers= "0123456789";
         private const string specialCharacters = "!@#$%^&*()-_=+<,>.";
         
-        static public void askBool(string question)
+        static public void addToString(string question)
         {
             bool valid = true;
             while (valid)
@@ -59,10 +59,10 @@ namespace UpSchool.SimplePasswordGenerator
             int passwordLength = 0;
             bool valid = false;
 
-            askBool(lowerCase);
-            askBool(upperCase);
-            askBool(numberCase);
-            askBool(charCase);
+            addToString(lowerCase);
+            addToString(upperCase);
+            addToString(numberCase);
+            addToString(charCase);
 
             while (valid == false)
             {
