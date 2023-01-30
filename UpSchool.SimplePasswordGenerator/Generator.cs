@@ -8,17 +8,17 @@ namespace UpSchool.SimplePasswordGenerator
         private const string upperCase = "Include Upper Case? ";
         private const string numberCase = "Include Number Case? ";
         private const string charCase = "Include Char Case? ";
-        private static string allPasword;
+        private static string? allPasword;
 
         private const string capitalLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
         private const string smallLetters = "qwertyuiopasdfghjklzxcvbnm";
         private const string numbers= "0123456789";
         private const string specialCharacters = "!@#$%^&*()-_=+<,>.";
         
-        static public bool askBool(string question)
+        static public void askBool(string question)
         {
-            bool boolToReturn = false;
-            while (true)
+            bool valid = true;
+            while (valid)
             {
                 Console.Write(question);
                 string ans = Console.ReadLine();
@@ -42,12 +42,10 @@ namespace UpSchool.SimplePasswordGenerator
                             Console.WriteLine("Please select at least one.");
                             break;
                     }
-                    boolToReturn = true;
                     break;
                 }
                 else if (ans != null && (ans == "n" || ans == "no" || ans == "NO" || ans == "N"))
                 {
-                    boolToReturn = false;
                     break;
                 }
                 else
@@ -55,34 +53,33 @@ namespace UpSchool.SimplePasswordGenerator
                     Console.Write("Only yes or no allowed \n");
                 }
             }
-            return boolToReturn;
         }
         static void Main(string[] args)
         {
-            int PasswordLength = 0;
-            bool Valid = false;
+            int passwordLength = 0;
+            bool valid = false;
 
             askBool(lowerCase);
             askBool(upperCase);
             askBool(numberCase);
             askBool(charCase);
 
-            while (Valid == false)
+            while (valid == false)
             {
                 Console.WriteLine("Enter the password length:");
                 string answer = Console.ReadLine();
 
-                if (int.TryParse(answer, out PasswordLength))
+                if (int.TryParse(answer, out passwordLength))
                 {
-                    PasswordLength = int.Parse(answer);
+                    passwordLength = int.Parse(answer);
 
-                    if (PasswordLength < 1)
+                    if (passwordLength < 1)
                     {
                         Console.WriteLine("Please enter a value greater than zero!");
                     }
                     else
                     {
-                        Valid = true;
+                        valid = true;
                     }
                 }
                 else
@@ -92,7 +89,7 @@ namespace UpSchool.SimplePasswordGenerator
             }
             StringBuilder res = new StringBuilder();
             Random rnd = new Random();
-            while (0 < PasswordLength--)
+            while (0 < passwordLength--)
             {
                 res.Append(allPasword[rnd.Next(allPasword.Length)]);
             }
