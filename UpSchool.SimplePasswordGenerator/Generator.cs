@@ -1,4 +1,6 @@
-﻿namespace UpSchool.SimplePasswordGenerator
+﻿using System.Text;
+
+namespace UpSchool.SimplePasswordGenerator
 {
     public class Generator
     {
@@ -6,17 +8,16 @@
         private const string upperCase = "Include Upper Case? ";
         private const string numberCase = "Include Number Case? ";
         private const string charCase = "Include Char Case? ";
+        private static string allPasword;
 
-        private const string CapitalLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
-        private const string SmallLetters = "qwertyuiopasdfghjklzxcvbnm";
-        private const string Numbers = "0123456789";
-        private const string SpecialCharacters = "!@#$%^&*()-_=+<,>.";
-        private const string AllPassword = "";
-
+        private const string capitalLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
+        private const string smallLetters = "qwertyuiopasdfghjklzxcvbnm";
+        private const string numbers= "0123456789";
+        private const string specialCharacters = "!@#$%^&*()-_=+<,>.";
+        
         static public bool askBool(string question)
         {
             bool boolToReturn = false;
-            string isAdd = "";
             while (true)
             {
                 Console.Write(question);
@@ -26,16 +27,16 @@
                     switch (question)
                     {
                         case lowerCase:
-                            Console.WriteLine(isAdd);
+                            allPasword = string.Concat(allPasword, smallLetters);
                             break;
                         case upperCase:
-                            Console.WriteLine(isAdd);
+                            allPasword = string.Concat(allPasword, capitalLetters);
                             break;
                         case numberCase:
-                            Console.WriteLine(isAdd);
+                            allPasword = string.Concat(allPasword, numbers);
                             break;
                         case charCase:
-                            Console.WriteLine(isAdd);
+                            allPasword = string.Concat(allPasword, specialCharacters);
                             break;
                         default:
                             Console.WriteLine("Please select at least one.");
@@ -89,7 +90,13 @@
                     Console.WriteLine("Please enter a number!");
                 }
             }
-            Console.WriteLine("Password Length: " + PasswordLength);
+            StringBuilder res = new StringBuilder();
+            Random rnd = new Random();
+            while (0 < PasswordLength--)
+            {
+                res.Append(allPasword[rnd.Next(allPasword.Length)]);
+            }
+            Console.WriteLine( "Your password is: "+ res.ToString());
         }
     }
 }
