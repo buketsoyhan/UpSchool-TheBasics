@@ -22,7 +22,7 @@ namespace UpSchool.SimplePasswordGenerator
             {
                 Console.Write(question);
                 string ans = Console.ReadLine();
-                if (ans != null && (ans == "y" || ans == "yes" || ans == "YES" || ans == "Y"))
+                if (ans != null && ( ans.ToUpper() == "YES" || ans.ToUpper() == "Y"))
                 {
                     switch (question)
                     {
@@ -44,7 +44,7 @@ namespace UpSchool.SimplePasswordGenerator
                     }
                     break;
                 }
-                else if (ans != null && (ans == "n" || ans == "no" || ans == "NO" || ans == "N"))
+                else if (ans != null && ( ans.ToUpper() == "NO" || ans.ToUpper() == "N"))
                 {
                     break;
                 }
