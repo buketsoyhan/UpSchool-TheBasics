@@ -8,7 +8,7 @@ namespace UpSchool.SimplePasswordGenerator
         private const string upperCase = "Include Upper Case? ";
         private const string numberCase = "Include Number Case? ";
         private const string charCase = "Include Special Character Case? ";
-        private static string? allPasword;
+        private static string? allPassword;
 
         private const string capitalLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
         private const string smallLetters = "qwertyuiopasdfghjklzxcvbnm";
@@ -27,16 +27,16 @@ namespace UpSchool.SimplePasswordGenerator
                     switch (question)
                     {
                         case lowerCase:
-                            allPasword = string.Concat(allPasword, smallLetters);
+                            allPassword = string.Concat(allPassword, smallLetters);
                             break;
                         case upperCase:
-                            allPasword = string.Concat(allPasword, capitalLetters);
+                            allPassword = string.Concat(allPassword, capitalLetters);
                             break;
                         case numberCase:
-                            allPasword = string.Concat(allPasword, numbers);
+                            allPassword = string.Concat(allPassword, numbers);
                             break;
                         case charCase:
-                            allPasword = string.Concat(allPasword, specialCharacters);
+                            allPassword = string.Concat(allPassword, specialCharacters);
                             break;
                         default:
                             Console.WriteLine("Please select at least one.");
@@ -87,7 +87,7 @@ namespace UpSchool.SimplePasswordGenerator
             Random rnd = new Random();
             while (0 < passwordLength--)
             {
-                res.Append(allPasword[rnd.Next(allPasword.Length)]);
+                res.Append(allPassword[rnd.Next(allPassword.Length)]);
             }
             Console.WriteLine("Your password is: " + res.ToString());
         }
