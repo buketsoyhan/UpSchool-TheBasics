@@ -7,7 +7,7 @@ namespace UpSchool.SimplePasswordGenerator
         private const string lowerCase = "Include Lower Case? ";
         private const string upperCase = "Include Upper Case? ";
         private const string numberCase = "Include Number Case? ";
-        private const string charCase = "Include Char Case? ";
+        private const string charCase = "Include Special Character Case? ";
         private static string? allPasword;
 
         private const string capitalLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
@@ -54,15 +54,11 @@ namespace UpSchool.SimplePasswordGenerator
                 }
             }
         }
-        static void Main(string[] args)
+
+        static public void createPass()
         {
             int passwordLength = 0;
             bool valid = false;
-
-            addToString(lowerCase);
-            addToString(upperCase);
-            addToString(numberCase);
-            addToString(charCase);
 
             while (valid == false)
             {
@@ -93,7 +89,20 @@ namespace UpSchool.SimplePasswordGenerator
             {
                 res.Append(allPasword[rnd.Next(allPasword.Length)]);
             }
-            Console.WriteLine( "Your password is: "+ res.ToString());
+            Console.WriteLine("Your password is: " + res.ToString());
+        }
+
+        static void Main(string[] args)
+        {
+            
+
+            addToString(lowerCase);
+            addToString(upperCase);
+            addToString(numberCase);
+            addToString(charCase);
+
+            createPass();
+            
         }
     }
 }
