@@ -16,7 +16,7 @@
                 Password Length <span class="badge bg-primary">@GeneratePasswordDto.Length</span>
             </label>
             
-            <input class="form-range" type="range" @onchange="InputOnChange" min="6" max="40" step="1" />
+            <input class="form-range" type="range" @onchange="InputOnChange" @oninput="InputOnChange" min="6" max="40" step="1" />
             
             <p>@Password</p>
         </div>
