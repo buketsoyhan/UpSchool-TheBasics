@@ -10,14 +10,14 @@
             <h2 class="text-info">UpStorage Password Generator</h2>
             <p>Create secure passwords with our Password Generator</p>
         </div>
-
+        
         <div class="mt-2 text-center">
             <label class="form-label">
                 Password Length <span class="badge bg-primary">@GeneratePasswordDto.Length</span>
             </label>
-
+            
             <input class="form-range" type="range" @onchange="InputOnChange" min="6" max="40" step="1" />
-
+            
             <p>@Password</p>
         </div>
     </div>
@@ -25,7 +25,7 @@
 
 @code
 {
-    public Colour GeneratePasswordDto = new Colour();
+    public GeneratePasswordDto GeneratePasswordDto = new GeneratePasswordDto();
     public string Password { get; set; } = string.Empty;
     public PasswordGenerator PasswordGenerator = new PasswordGenerator();
 
