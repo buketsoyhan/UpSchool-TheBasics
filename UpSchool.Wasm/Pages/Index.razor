@@ -4,21 +4,50 @@
 
 <PageTitle>Index</PageTitle>
 
-<div class="card mt-3">
-    <div class="card-body">
-        <div class="card-title text-center">
-            <h2 class="text-info">UpStorage Password Generator</h2>
-            <p>Create secure passwords with our Password Generator</p>
-        </div>
-        
-        <div class="mt-2 text-center">
-            <label class="form-label">
-                Password Length <span class="badge bg-primary">@GeneratePasswordDto.Length</span>
-            </label>
-            
-            <input class="form-range" type="range" @onchange="InputOnChange" @oninput="InputOnChange" min="6" max="40" step="1" />
-            
-            <p>@Password</p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="card mt-3">
+            <div class="card-body">
+                <div class="mt-2 text-center">
+                    <label>
+                        Password Length <span class="badge bg-danger">@GeneratePasswordDto.Length</span>
+                        <p>@Password </p>
+                    </label>
+
+                    <input class="form-range" type="range" @onchange="OnInputChange" @oninput="OnInputChange" min="6" max="40" step="1" />
+                </div>
+            </div>
+
+            <div class="card-footer d-flex justify-content-between">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" @bind="@GeneratePasswordDto.IncludeNumbers" 
+                    @bind:event="oninput" 
+                    @onchange="@((args) => CheckboxOnChange(args, "numbers"))" id="numbers" />
+                    <label class="form-check-label" for="numbers">Numbers</label>
+                </div>
+
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" @bind="@GeneratePasswordDto.IncludeLowercaseCharacters" 
+                    @bind:event="oninput" 
+                    @onchange="@((args) => CheckboxOnChange(args, "lowercaseChars"))" id="lowercaseChars" />
+                    <label class="form-check-label" for="lowercaseChars">Lowercase Chars</label>
+                </div>
+
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" @bind="@GeneratePasswordDto.IncludeUppercaseCharacters"
+                           @bind:event="oninput"
+                           @onchange="@((args) => CheckboxOnChange(args, "uppercaseChars"))" id="uppercaseChars" />
+                    <label class="form-check-label" for="uppercaseChars">Uppercase Chars</label>
+                </div>
+
+                                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" @bind="@GeneratePasswordDto.IncludeSpecialCharacters" 
+                    @bind:event="oninput"
+                           @onchange="@((args) => CheckboxOnChange(args, "specialChars"))" id="specialChars" />
+                    <label class="form-check-label" for="specialChars">Special Chars</label>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
@@ -29,10 +58,34 @@
     public string Password { get; set; } = string.Empty;
     public PasswordGenerator PasswordGenerator = new PasswordGenerator();
 
-    private void InputOnChange(ChangeEventArgs args)
+    private void OnInputChange(ChangeEventArgs args)
     {
         GeneratePasswordDto.Length = Convert.ToInt32(args.Value);
 
+        Password = PasswordGenerator.Generate(GeneratePasswordDto);
+    }
+
+    private void CheckboxOnChange(ChangeEventArgs args, string checkBoxName)
+    {
+        switch (checkBoxName)
+        {
+            case "numbers":
+                GeneratePasswordDto.IncludeNumbers = Convert.ToBoolean(args.Value);
+                break;
+
+            case "lowercaseChars":
+                GeneratePasswordDto.IncludeLowercaseCharacters = Convert.ToBoolean(args.Value);
+                break;
+
+            case "uppercaseChars":
+                GeneratePasswordDto.IncludeUppercaseCharacters = Convert.ToBoolean(args.Value);
+                break;
+            case "specialChars":
+                GeneratePasswordDto.IncludeSpecialCharacters = Convert.ToBoolean(args.Value);
+                break;
+            default:
+                throw new Exception(message: "Unexpected value");
+        }
         Password = PasswordGenerator.Generate(GeneratePasswordDto);
     }
 }
