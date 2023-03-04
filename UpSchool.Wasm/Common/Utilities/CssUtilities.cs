@@ -4,7 +4,6 @@
     {
         public static string GetCssColourClassForPasswords(int length)
         {
-            //Break kullanamama nedenimiz değeri return ettiği için kendinden sonrakileri kontrol etmiyor bu nedenle break kullanammıza gerek yok.
             switch (length)
             {
                 case var value when (value >= 6 && value <= 12):

@@ -41,11 +41,9 @@ namespace UpSchool.Domain.Utilities
             //if (!generatePasswordDto.IncludeNumbers && !generatePasswordDto.IncludeLowercaseCharacters &&
             //!generatePasswordDto.IncludeUppercaseCharacters && !generatePasswordDto.IncludeSpecialCharacters
             //    )
-            if (generatePasswordDto is
-                {
-                    IncludeNumbers: false, IncludeLowercaseCharacters: false,
-                    IncludeUppercaseCharacters: false, IncludeSpecialCharacters: false
-                })
+            if(generatePasswordDto is
+               {IncludeNumbers:false, IncludeLowercaseCharacters:false, 
+                   IncludeUppercaseCharacters:false, IncludeSpecialCharacters:false})
             {
                 return string.Empty;
             }
