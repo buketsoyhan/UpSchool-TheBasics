@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LuckySister.Console", "Luck
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpSchool.Wasm", "UpSchool.Wasm\UpSchool.Wasm.csproj", "{1790E4A1-0A65-43FC-976E-CA1B81A8C12A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpSchool.WebApi", "UpSchool.WebApi\UpSchool.WebApi.csproj", "{09F747C8-01EF-4AC6-93E3-07C79AEE6F76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpSchool.WebApi", "UpSchool.WebApi\UpSchool.WebApi.csproj", "{09F747C8-01EF-4AC6-93E3-07C79AEE6F76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
