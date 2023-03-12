@@ -15,24 +15,42 @@ namespace UpSchool.WebApi.Controllers
             new Account()
             {
                 Id = Guid.NewGuid(),
-                UserName = "buket",
-                Password = StringHelper.Base64Encode("pass123"),
-                IsFavourite = true,
+                UserName = "mrpickle",
+                Password = StringHelper.Base64Encode("123pickle123"),
+                IsFavourite = false,
                 CreatedOn = DateTimeOffset.Now,
                 Title = "UpSchool",
-                Url = "www.upschool.com",
-            }
-        };
+                Url = "https://www.upschool.com",
+            },
+
+            new Account()
+            {
+            Id = Guid.NewGuid(),
+            UserName = "fullspeed@gmail.com",
+            Password = StringHelper.Base64Encode("123fullspeed123"),
+            IsFavourite = true,
+            CreatedOn = DateTimeOffset.Now,
+            Title = "Gmail",
+            Url = "https://www.google.com/intl/tr/gmail/about/",
+            },
+
+       new Account
+        {
+            Id = Guid.NewGuid(),
+            UserName = "movieguy",
+            Password = StringHelper.Base64Encode("123movieguy123"),
+            IsFavourite = false,
+            CreatedOn = DateTimeOffset.Now,
+            Title = "Sinemalar",
+            Url = "https://www.sinemalar.com",
+        }
+    };
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            List<AccountDto> accountDtos = new List<AccountDto>();
+            var accountDtos = _accounts.Select(account => AccountDto.MapFromAccount(account));
 
-            foreach(var account in _accounts)
-            {
-                accountDtos.Add(AccountDto.MapFromAccount(account));
-            }
             return Ok(accountDtos);
         }
     }
