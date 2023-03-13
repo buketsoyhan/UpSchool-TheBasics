@@ -3,7 +3,7 @@ using UpSchool.Console.Domain;
 using UpSchool.Console.Enums;
 using UpSchool.Console.FirstExample;
 
-const string filePath = "C:\\Users\\buket\\Desktop\\UpSchool-TheBasics-master\\Access_Control_Logs.txt"; // \
+const string filePath = "c:\\users\\alper\\desktop\\Access_Control_Logs.txt"; // \
 
 var logsText = File.ReadAllText(filePath);
 
@@ -33,6 +33,8 @@ foreach (var line in splitLines.Skip(1))
 }
 
 var cardLogs = logs
+    .Where(x => x.AccessType == AccessType.FACE)
+    .Where(x=> x.DeviceSerialNo == "X01X2500S")
     .ToList();
 
 // where1 && where 2 && where 3 && where n

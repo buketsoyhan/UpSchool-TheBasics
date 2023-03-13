@@ -1,15 +1,14 @@
 ﻿@page "/"
-
-@using UpSchool.Domain.Dtos
 @using UpSchool.Domain.Services
+@using UpSchool.Domain.Entities
+@using UpSchool.Domain.Dtos
 @using UpSchool.Domain.Utilities
-@using UpSchool.Wasm.Common.Utilities
-@using UpSchool.Wasm.Components
 @inject IJSRuntime JsRuntime
 @inject IToasterService ToastService
 @inject Blazored.LocalStorage.ILocalStorageService LocalStorage
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
+
 <div class="container">
     <div class="row ">
         <div class="col-md-12">
@@ -39,18 +38,18 @@
                                             {
                                                 <input type="password" class="form-control text-center" value="@account.Password">
                                             }
-                                            <span class="input-group-text oi oi-eye clickable" @onclick="@(()=>SetShowPassword(account))"></span>
+                                            <span class="input-group-text oi oi-eye clickable" @onclick="@(() => SetShowPassword(account))"></span>
                                             <span class="input-group-text oi oi-document clickable"></span>
                                         </div>
-                                        <div class="card-footer">
-                                            <div class="d-flex justify-content-betwwen">
-                                                <button class="btn btn-info" @onclick="@(()=>GotoEditPage(account.Id))">Edit</button>
-                                                <button class="btn btn-danger">Delete</button>
 
-                                            </div>
-                                        </div>
                                     </div>
-                                    
+                                    <div class="card-footer">
+                                        <div class="d-flex justify-content-between">
+                                            <button class="btn btn-info" @onclick="@(() => GoToEditPage(account.Id))">Edit</button>
+                                            <button class="btn btn-danger">Delete</button>
+                                        </div>
+                                        
+                                    </div>
                                 </div>
                             </div>
                         }
@@ -64,22 +63,25 @@
 
 @code
 {
-    List<AccountDto> accounts = new();
+    List<AccountDto> accounts = new ();
 
     protected override async Task OnInitializedAsync()
     {
-        accounts = await FetchAccountAsync();
+        accounts = await FetchAccountsAsync();
 
         await base.OnInitializedAsync();
     }
-    private Task<List<AccountDto>> FetchAccountAsync()
+
+    private Task<List<AccountDto>?> FetchAccountsAsync()
     {
-        return HttpClient.GetFromJsonAsync<List<AccountDto>>("Account");
+        return HttpClient.GetFromJsonAsync<List<AccountDto>>("Accounts");
     }
-    private void GotoEditPage(Guid id)
+
+    private void GoToEditPage(Guid id)
     {
         NavigationManager.NavigateTo($"/accounts/edit/{id}");
     }
+
     private void SetShowPassword(AccountDto accountDto)
     {
         accountDto.ShowPassword = !accountDto.ShowPassword;
@@ -87,9 +89,12 @@
         if (accountDto.ShowPassword)
         {
             accountDto.Password = StringHelper.Base64Decode(accountDto.Password);
+            Console.WriteLine(accountDto.Password);
             return;
         }
+
         accountDto.Password = StringHelper.Base64Encode(accountDto.Password);
+        Console.WriteLine(accountDto.Password);
     }
 }
 

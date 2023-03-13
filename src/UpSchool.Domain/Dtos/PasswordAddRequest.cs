@@ -8,9 +8,12 @@
         {
 
         }
+
         public PasswordAddRequest(string password)
         {
             Password = password;
         }
+
+       
     }
 }

@@ -27,9 +27,9 @@ namespace UpSchool.Domain.Dtos
                 UserName = account.UserName,
                 Password = account.Password,
                 Url = account.Url,
-                ShowPassword = account.ShowPassword,
+                ShowPassword = false,
                 CreatedOn = account.CreatedOn,
-                IsFavourite = account.IsFavourite,
+                IsFavourite = account.IsFavourite
             };
         }
     }

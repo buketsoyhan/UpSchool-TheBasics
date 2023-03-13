@@ -11,7 +11,7 @@ namespace UpSchool.WebApi.Controllers
     {
         private readonly PasswordGenerator _passwordGenerator;
         private readonly GeneratePasswordDto _generatePasswordDto;
-        private static List<string> _passwords = new List<string>();
+        private static List<string>  _passwords = new List<string>();
         public PasswordsController()
         {
             _passwordGenerator = new PasswordGenerator();
@@ -30,7 +30,7 @@ namespace UpSchool.WebApi.Controllers
             return Ok(_passwords);
         }
 
-
+        
         [HttpPost]
         public IActionResult Add(PasswordAddRequest addRequest)
         {

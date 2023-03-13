@@ -13,16 +13,6 @@ namespace UpSchool.Wasm.Services
             _jsRuntime = jsRuntime;
         }
 
-        public void ShowError(string message)
-        {
-            _jsRuntime.ShowToastAsync(new ToastOptions
-            {
-                Text = message,
-                Position = ToastPosition.TopCenter,
-                Heading = "Error!"
-            });
-        }
-
         public void ShowSuccess(string message)
         {
             _jsRuntime.ShowToastAsync(new ToastOptions
@@ -30,6 +20,16 @@ namespace UpSchool.Wasm.Services
                 Text = message,
                 Position = ToastPosition.TopCenter,
                 Heading = "UpSchool"
+            });
+        }
+
+        public void ShowError(string message)
+        {
+            _jsRuntime.ShowToastAsync(new ToastOptions
+            {
+                Text = message,
+                Position = ToastPosition.TopCenter,
+                Heading = "Error!"
             });
         }
     }
