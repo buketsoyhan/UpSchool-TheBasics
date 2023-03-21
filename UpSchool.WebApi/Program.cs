@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using UpSchool.Persistence.EntityFramework.Contexts;
 using UpSchool.WebApi.AutoMapper.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var mariaDbConnectionString = builder.Configuration.GetConnectionString("MariaDB")!;
+
+builder.Services.AddDbContext<UpStorageDbContext>(opt => opt.UseMySql(mariaDbConnectionString, ServerVersion.AutoDetect(mariaDbConnectionString)));
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
@@ -18,6 +24,7 @@ builder.Services.AddCors(options =>
             .SetIsOriginAllowed((host) => true)
             .AllowAnyHeader());
 });
+
 
 builder.Services.AddAutoMapper(typeof(AccountProfile));
 
