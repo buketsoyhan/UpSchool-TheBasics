@@ -60,10 +60,18 @@ namespace UpSchool.WebApi.Controllers
 
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll(string? searchKeyword)
         {
-
-            var accounts = _dbContext.Accounts.ToList();
+            var accounts = string.IsNullOrEmpty(searchKeyword)
+                ? 
+                _dbContext
+                .Accounts
+                .ToList()
+                : 
+                _dbContext
+                .Accounts
+                .Where(x=>x.Title.Contains(searchKeyword))
+                .ToList();
 
             var accountDtos = accounts.Select(account => AccountDto.MapFromAccount(account)).ToList();
 
