@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LuckySister.Console", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpSchool.WebApi", "UpSchool.WebApi\UpSchool.WebApi.csproj", "{95E93B0B-1AEF-4383-A731-60DF2F43936F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpSchool.Persistence", "UpSchool.Persistence\UpSchool.Persistence.csproj", "{09FAA42A-A6FD-4704-B8F3-B1EB68C6B103}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{95E93B0B-1AEF-4383-A731-60DF2F43936F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95E93B0B-1AEF-4383-A731-60DF2F43936F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95E93B0B-1AEF-4383-A731-60DF2F43936F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09FAA42A-A6FD-4704-B8F3-B1EB68C6B103}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09FAA42A-A6FD-4704-B8F3-B1EB68C6B103}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09FAA42A-A6FD-4704-B8F3-B1EB68C6B103}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09FAA42A-A6FD-4704-B8F3-B1EB68C6B103}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
