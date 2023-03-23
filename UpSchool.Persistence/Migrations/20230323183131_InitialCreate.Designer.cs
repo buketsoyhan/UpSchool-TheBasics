@@ -11,8 +11,8 @@ using UpSchool.Persistence.EntityFramework.Contexts;
 namespace UpSchool.Persistence.Migrations
 {
     [DbContext(typeof(UpStorageDbContext))]
-    [Migration("20230321175910_AccountsSeed")]
-    partial class AccountsSeed
+    [Migration("20230323183131_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,6 +57,8 @@ namespace UpSchool.Persistence.Migrations
                         .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Title", "UserName");
 
                     b.ToTable("Accounts", (string)null);
 

@@ -20,6 +20,8 @@ namespace UpSchool.Persistence.EntityFramework.Configurations
             builder.Property(x => x.Title).IsRequired();
             builder.Property(x => x.Title).HasMaxLength(150);
 
+            builder.HasIndex(x => new {x.Title,x.UserName});    
+
             // UserName
             builder.Property(x => x.UserName).IsRequired();
             builder.Property(x => x.UserName).HasMaxLength(100);

@@ -121,6 +121,7 @@ namespace UpSchool.Persistence.EntityFramework.Seeders
                     Url = String.Empty,
                 }
             };
+
         }
     }
 }

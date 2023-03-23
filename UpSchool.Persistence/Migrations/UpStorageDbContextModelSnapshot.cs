@@ -55,6 +55,8 @@ namespace UpSchool.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Title", "UserName");
+
                     b.ToTable("Accounts", (string)null);
 
                     b.HasData(
