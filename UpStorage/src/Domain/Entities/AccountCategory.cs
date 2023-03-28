@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities
 {
-    internal class AccountCategory
+    public class AccountCategory
     {
         public Guid AccountId { get; set; }
         public Account Account { get; set; }
