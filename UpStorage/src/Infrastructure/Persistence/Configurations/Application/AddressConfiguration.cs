@@ -9,7 +9,11 @@ namespace Infrastructure.Persistence.Configurations.Application
     {
         public void Configure(EntityTypeBuilder<Address> builder)
         {
-            //Relationships
+
+            builder.Property(x => x.AddressType).IsRequired();
+            builder.Property(x => x.AddressType).HasConversion<int>();
+
+            // Relationships
             builder.HasOne<User>().WithMany()
                 .HasForeignKey(x => x.UserId);
         }
