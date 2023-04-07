@@ -4,13 +4,14 @@
     {
         public static bool IsContainsChar(this string text, int minCount)
         {
-            var results = text.Select(x => char.IsLetter(x));
+          var results= text.Select(x => char.IsLetter(x));
 
-            if (results.Count(x => x == true) == minCount)
-            {
-                return true;
-            }
-            return false;
+          if (results.Count(x=>x == true) == minCount)
+          {
+              return true;
+          }
+
+          return false;
         }
     }
 }

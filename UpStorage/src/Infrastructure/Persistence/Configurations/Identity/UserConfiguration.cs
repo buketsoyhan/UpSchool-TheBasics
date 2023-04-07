@@ -62,7 +62,7 @@ namespace Infrastructure.Persistence.Configurations.Identity
 
             //Each User can have many Addresses
             //builder.HasMany<Address>().WithOne().HasForeignKey(x=>x.UserId).IsRequired();
-            
+
             // CreatedDate
             builder.Property(x => x.CreatedOn).IsRequired();
             
