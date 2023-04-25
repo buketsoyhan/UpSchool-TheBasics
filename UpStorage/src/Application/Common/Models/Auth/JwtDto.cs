@@ -5,9 +5,9 @@
         public string AccessToken { get; set; }
         public DateTime ExpiryDate { get; set; }
 
-        public JwtDto(string accessToken, DateTime expirDate) { 
+        public JwtDto(string accessToken, DateTime expiryDate) { 
             AccessToken = accessToken;
-            ExpiryDate = expirDate;
+            ExpiryDate = expiryDate;
         }
 
     }
