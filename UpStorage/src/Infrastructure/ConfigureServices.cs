@@ -12,7 +12,7 @@ namespace Infrastructure
     public static class ConfigureServices
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services,
-            IConfiguration configuration)
+            IConfiguration configuration, string wwwrootPath)
         {
 
             var connectionString = configuration.GetConnectionString("MariaDB")!;
@@ -25,29 +25,31 @@ namespace Infrastructure
             services.AddDbContext<IdentityContext>(opt => opt.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
             services.AddIdentity<User, Role>(options =>
-                {
+            {
 
-                    // User Password Options
-                    options.Password.RequireDigit = false;
-                    options.Password.RequiredLength = 6;
-                    options.Password.RequiredUniqueChars = 0;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireLowercase = false;
-                    options.Password.RequireUppercase = false;
-                    // User Username and Email Options
-                    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+$";
-                    options.User.RequireUniqueEmail = true;
+                // User Password Options
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 0;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                // User Username and Email Options
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+$";
+                options.User.RequireUniqueEmail = true;
 
-                }).AddEntityFrameworkStores<IdentityContext>()
+            }).AddEntityFrameworkStores<IdentityContext>()
                 .AddDefaultTokenProviders();
 
             // Scoped Services
             services.AddScoped<IExcelService, ExcelManager>();
             services.AddScoped<IAuthenticationService, AuthenticationManager>();
+            services.AddSingleton<IJwtService, JwtManager>();
 
             // Singleton Services
-            services.AddSingleton<IJwtService, JwtManager>();
             services.AddSingleton<ITwoFactorService, TwoFactorManager>();
+            services.AddSingleton<IEmailService>(new EmailManager(wwwrootPath));
+
 
             return services;
         }
