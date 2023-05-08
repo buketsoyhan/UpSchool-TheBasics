@@ -109,6 +109,8 @@ builder.Services.AddSignalR();
 
 builder.Services.AddScoped<IAccountHubService, AccountHubManager>();
 
+builder.Services.AddMemoryCache();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
