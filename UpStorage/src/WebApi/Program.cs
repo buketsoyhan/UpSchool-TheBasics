@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using WebApi.Filters;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,6 +81,27 @@ builder.Services.AddAuthentication(options =>
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"]))
         };
     });
+// Localization Files Path
+builder.Services.AddLocalization(options =>
+{
+    options.ResourcesPath = "Resources";
+});
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var defaultCulture = new CultureInfo("en-GB");
+
+    List<CultureInfo> cultureInfos = new List<CultureInfo>()
+    {
+        defaultCulture,
+        new ("tr-TR")
+    };
+
+    options.SupportedCultures = cultureInfos;
+    options.SupportedUICultures = cultureInfos;
+    options.DefaultRequestCulture = new RequestCulture(defaultCulture);
+    options.ApplyCurrentCultureToResponseHeaders = true;
+});
 
 var app = builder.Build();
 
@@ -89,6 +113,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseStaticFiles();
+
+// Localization
+var requestLocalizationOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
+if (requestLocalizationOptions is not null) app.UseRequestLocalization(requestLocalizationOptions.Value);
 
 app.UseHttpsRedirection();
 
