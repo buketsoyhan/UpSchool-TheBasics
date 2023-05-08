@@ -14,5 +14,9 @@ namespace Application.Common.Localizations
         {
             public static string Added => "CityAdded";
         }
+        public static class HandlerMessages
+        {
+            public static string Delete => "HandlerDelete";
+        }
     }
 }
