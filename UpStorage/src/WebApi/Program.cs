@@ -11,10 +11,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using WebApi.Filters;
 using Microsoft.Extensions.Options;
-using WebApi.Services;
-using ExcelDataReader.Log;
 using Serilog;
-using Log = Serilog.Log;
+using WebApi.Services;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
