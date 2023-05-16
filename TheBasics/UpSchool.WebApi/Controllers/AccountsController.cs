@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using UpSchool.Domain.Data;
 using UpSchool.Domain.Dtos;
 using UpSchool.Domain.Entities;
 using UpSchool.Domain.Utilities;
@@ -17,51 +18,15 @@ namespace UpSchool.WebApi.Controllers
         private readonly IMapper _mapper;
         private readonly UpStorageDbContext _dbContext;
         private readonly IHubContext<AccountsHub> _accountsHubContext;
+        private readonly IUserRepository _userRepository;
 
-        public AccountsController(IMapper mapper, UpStorageDbContext dbContext, IHubContext<AccountsHub> accountsHubContext)
+        public AccountsController(IMapper mapper, UpStorageDbContext dbContext, IHubContext<AccountsHub> accountsHubContext, IUserRepository userRepository)
         {
             _mapper = mapper;
             _dbContext = dbContext;
             _accountsHubContext = accountsHubContext;
+            _userRepository = userRepository;
         }
-
-        // private static List<Account> _accounts = new()
-        // {
-        //     new Account()
-        //     {
-        //         Id = new Guid("0bb85132-e3fa-4229-a3cf-f817baa418f5"),
-        //         UserName = "mrpickle",
-        //         Password = StringHelper.Base64Encode("123pickle123"),
-        //         IsFavourite = false,
-        //         CreatedOn = DateTimeOffset.Now,
-        //         Title = "UpSchool",
-        //         Url = "https://www.upschool.com",
-        //     },
-
-        //     new Account()
-        //     {
-        //     Id = new Guid("f4c43715-59d6-4806-9ee9-8cf8a1de8d19"),
-        //     UserName = "fullspeed@gmail.com",
-        //     Password = StringHelper.Base64Encode("123fullspeed123"),
-        //     IsFavourite = true,
-        //     CreatedOn = DateTimeOffset.Now,
-        //     Title = "Gmail",
-        //     Url = "https://www.google.com/intl/tr/gmail/about/",
-        //     },
-
-        //new Account
-        // {
-        //     Id = new Guid("bf5f7461-becc-46f8-b4cd-a39b8e6ca626"),
-        //     UserName = "movieguy",
-        //     Password = StringHelper.Base64Encode("123movieguy123"),
-        //     IsFavourite = false,
-        //     CreatedOn = DateTimeOffset.Now,
-        //     Title = "Sinemalar",
-        //     Url = "https://www.sinemalar.com",
-        // }
-        // };
-
-
 
         [HttpGet]
         public IActionResult GetAll(bool isAscending,string? searchKeyword)
@@ -146,6 +111,19 @@ namespace UpSchool.WebApi.Controllers
 
             _dbContext.Accounts.Remove(account);
             _dbContext.SaveChanges();
+
+            return NoContent();
+        }
+
+        [HttpDelete("RepositoryDelete/{id:guid}")]
+        public async Task<IActionResult> RepositoryDeleteAsync(Guid id, CancellationToken cancellationToken)
+        {
+            // x=>x.Id == id
+            // x=x.Email == "alper.tunga@dotnet.gg"
+            var user = await _userRepository.GetByIdAsync(id, cancellationToken);
+
+
+            var result = await _userRepository.DeleteAsync(x => x.Id == id, cancellationToken);
 
             return NoContent();
         }
