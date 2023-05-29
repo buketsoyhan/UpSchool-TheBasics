@@ -14,6 +14,11 @@ function App() {
 
   const [passwordLength, setPasswordLength] = useState<number>(12);
 
+  const [includeNumbers, setIncludeNumbers] = useState<boolean>(true);
+  const [includeLowercase, setIncludeLowecase] = useState<boolean>(true);
+  const [includeUppercase, setIncludeUppercase] = useState<boolean>(false);
+  const [includeSpecialChars, setIncludeSpecialChars] = useState<boolean>(false);
+
   const myStyles = {
     iconStyles: {
       cursor: "pointer",
@@ -21,28 +26,21 @@ function App() {
   }
 
   useEffect(() => {
-    const generatePasswordDto = new GeneratePasswordDto();
-
-    generatePasswordDto.Length = 15
-    generatePasswordDto.IncludeNumbers = true
-    generatePasswordDto.IncludeLowerCharacters = true
-    generatePasswordDto.IncludeUpperCharacters = true
-    generatePasswordDto.IncludeSpecialCharacters = true
-
-    setPassword(passwordGenerator.Generate(generatePasswordDto))
-
-  }, [])
+    handleGenerate()
+  }, [passwordLength, includeNumbers,includeLowercase,includeUppercase,includeSpecialChars])
 
   const handleGenerate = (): void => {
     const generatePasswordDto = new GeneratePasswordDto()
 
     generatePasswordDto.Length = passwordLength;
-    generatePasswordDto.IncludeNumbers = true
-    generatePasswordDto.IncludeLowerCharacters = true
-    generatePasswordDto.IncludeUpperCharacters = true
-    generatePasswordDto.IncludeSpecialCharacters = true
+    generatePasswordDto.IncludeNumbers = includeNumbers
+    generatePasswordDto.IncludeLowerCharacters = includeLowercase
+    generatePasswordDto.IncludeUpperCharacters = includeUppercase
+    generatePasswordDto.IncludeSpecialCharacters = includeSpecialChars
 
-    setPassword(passwordGenerator.Generate(generatePasswordDto))
+    const newPass = passwordGenerator.Generate(generatePasswordDto)
+
+    setPassword(newPass)
   }
 
   const handleSavePassword = () => {
@@ -61,7 +59,7 @@ function App() {
 
     setPasswordLength(Number(value));
 
-    handleGenerate();
+    //handleGenerate();
   }
 
 
@@ -82,7 +80,7 @@ function App() {
           <div className="card-content">
             <div className="media">
               <div className="media-content">
-                <p className="is-size-3">{password}</p>
+                <p className="is-size-4">{password}</p>
               </div>
               <div className="media-right">
                 <span style={myStyles.iconStyles} className="is-size-3" onClick={handleSavePassword}>📁</span>
@@ -92,10 +90,27 @@ function App() {
             </div>
             <div className="content has-text-centered">
               <div className="field">
-                <input id="passwordLengthSelector" type="range" step={1} min={6} max={40}
+                <input id="passwordLengthSelector" type="range" step={1} min={6} max={35} className="input mr-3"
                   value={passwordLength} onChange={(event) => handleChange(event.currentTarget.value)} />
                 <label htmlFor="passwordLengthSelector" style={{ fontSize: '24px', fontWeight: "bold" }}>{passwordLength}</label>
-
+              </div>
+              <div className="field">
+                <label className="checkbox mr-2">
+                  <input type="checkbox" className="mr-1" checked={includeNumbers} onChange={(e)=>setIncludeNumbers(e.currentTarget.checked)}/>
+                  Numbers
+                </label>
+                <label className="checkbox mr-2">
+                  <input type="checkbox" className="mr-1" checked={includeLowercase} onChange={(e)=>setIncludeLowecase(e.currentTarget.checked)}/>
+                  Lowercase
+                </label>
+                <label className="checkbox mr-2">
+                  <input type="checkbox" className="mr-1" checked={includeUppercase} onChange={(e)=>setIncludeUppercase(e.currentTarget.checked)}/>
+                  Uppercase
+                </label>
+                <label className="checkbox mr-2">
+                  <input type="checkbox" className="mr-1" checked={includeSpecialChars} onChange={(e)=>setIncludeSpecialChars(e.currentTarget.checked)}/>
+                  Special Chars
+                </label>
               </div>
               <ol className="list is-hoverable">
                 {savedPasswords.map((pass, index) => (
