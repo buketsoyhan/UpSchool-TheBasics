@@ -1,36 +1,5 @@
-.app-container {
-  background-color: #C4DFDF;
-}
-
-.header-container {
-  display: flex;
-  justify-content: center;
-}
-
-.header-container h3 {
-  color: #48C774; 
-  font-size: 2rem; 
-}
-
-.password-text {
-  font-size: 1.5rem;
-}
-
-.icon-style {
-  cursor: pointer;
-  font-size: 1.5rem; 
-}
-
 .App {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;  
-}
-
-.card {
-  width: 70%; 
-  max-width: 800px; 
-  margin: 0 auto; 
+  padding-top: 75px;
+   padding-bottom: 50px;
+   min-height: 100vh;
 }
