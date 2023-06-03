@@ -1,7 +1,12 @@
 import { NavLink } from "react-router-dom";
-import {Container, Menu,Image} from "semantic-ui-react";
+import {Container, Menu,Image, Input} from "semantic-ui-react";
+import { AccountGetAllDto } from "../types/AccountTypes";
 
-const NavBar = () => {
+export type NavbarProps = {
+    accounts:AccountGetAllDto[]
+}
+
+const NavBar = ({accounts}:NavbarProps) => {
     return (
         <Menu fixed='top' inverted>
             <Container>
@@ -10,7 +15,7 @@ const NavBar = () => {
                     UpStorage
                 </Menu.Item>
                 <Menu.Item as={NavLink} to="/">Home</Menu.Item>
-                <Menu.Item as={NavLink} to="/accounts">Accounts</Menu.Item>
+                <Menu.Item as={NavLink} to="/accounts">Accounts ({accounts.length}) </Menu.Item>
                 <Menu.Item as={NavLink} to="/dfef">Not Found</Menu.Item>
             </Container>
         </Menu>
