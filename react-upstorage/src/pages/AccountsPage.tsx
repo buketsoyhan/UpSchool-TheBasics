@@ -23,9 +23,9 @@ function AccountsPage({accounts, setAccounts}:AccountsPageProps) {
   const onPasswordVisibilityToggle = (id: string) => {
     // Create a new array with the same accounts, but with the showPassword property of the account with the given id toggled
     const updatedAccounts = accounts.map(account => {
-      if (account.Id === id) {
+      if (account.id === id) {
         // Toggle the showPassword property
-        return { ...account, ShowPassword: !account.ShowPassword };
+        return { ...account, ShowPassword: !account.showPassword };
       } else {
         // Leave the account unchanged
         return account;

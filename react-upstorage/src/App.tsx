@@ -8,29 +8,31 @@ import AccountsPage from './pages/AccountsPage.tsx';
 import NotFoundPage from './pages/NotFoundPage.tsx';
 import { AccountGetAllDto } from './types/AccountTypes.tsx';
 import { useState } from 'react';
+import { LocalUser } from './types/AuthTypes.ts';
+import LoginPage from './pages/LoginPage.tsx';
 
 const dummyAccounts: AccountGetAllDto[] = [
   {
-    Id: "12345",
-    Title: "Yemek Sepeti",
-    Url: "www.yemeksepeti.com",
-    IsFavourite: false,
-    UserName: "buketsoyhan",
-    Password: "123buket",
-    Categories: [],
-    UserId: "1",
-    ShowPassword: false,
+    id: "12345",
+    title: "Yemek Sepeti",
+    url: "www.yemeksepeti.com",
+    isFavourite: false,
+    userName: "buketsoyhan",
+    password: "123buket",
+    categories: [],
+    userId: "1",
+    showPassword: false,
   },
   {
-    Id: "efe",
-    Title: "Getir",
-    Url: "www.getir.com",
-    IsFavourite: false,
-    UserName: "buketsoyhan",
-    Password: "123buket",
-    Categories: [],
-    UserId: "2",
-    ShowPassword: false,
+    id: "efe",
+    title: "Getir",
+    url: "www.getir.com",
+    isFavourite: false,
+    userName: "buketsoyhan",
+    password: "123buket",
+    categories: [],
+    userId: "2",
+    showPassword: false,
   }
 ]
 
@@ -38,14 +40,17 @@ const dummyAccounts: AccountGetAllDto[] = [
 function App() {
   const [accounts, setAccounts] = useState<AccountGetAllDto[]>(dummyAccounts);
 
+  const [appUser, setAppUser] = useState<LocalUser | undefined>(undefined)
+
   return (
     <>
       <ToastContainer />
-      <NavBar accounts={accounts} />
+      <NavBar accounts={accounts} appUser={appUser} />
       <Container className="App">
         <Routes>
           <Route path='/' element={<PasswordGeneratorPage />} />
           <Route path='/accounts' element={<AccountsPage accounts={accounts} setAccounts={setAccounts} />} />
+          <Route path='/login' element={<LoginPage setAppUser={setAppUser} />} />
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </Container>
