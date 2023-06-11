@@ -1,21 +1,17 @@
-import { useEffect } from "react";
-import { AccountGetAllDto } from "../types/AccountTypes"
+import { useContext, useEffect } from "react";
 import { Button, Divider, Grid, Header, Icon, Input, Segment, Select } from "semantic-ui-react";
 import "./AccountsPage.css"
 import AccountCard from "../components/AccountCard";
+import { AccountsContext } from "../context/StateContext";
 
 const options = [
   { key: '1', text: 'Ascending', value: 'true' },
   { key: '2', text: 'Descending', value: 'false' }
 ];
 
-export type AccountsPageProps={
-  accounts:AccountGetAllDto[],
-  setAccounts:(accounts:AccountGetAllDto[])=>void
-}
 
-function AccountsPage({accounts, setAccounts}:AccountsPageProps) {
-
+function AccountsPage() {
+  const {accounts,setAccounts}=useContext(AccountsContext)
   useEffect(() => {
     return;
   }, [])

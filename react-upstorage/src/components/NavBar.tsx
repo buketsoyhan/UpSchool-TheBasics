@@ -1,14 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { Container, Menu, Image, Icon } from "semantic-ui-react";
-import { AccountGetAllDto } from "../types/AccountTypes";
-import { LocalUser } from "../types/AuthTypes";
+import { useContext } from "react";
+import { AccountsContext, AppUserContext } from "../context/StateContext";
 
-export type NavbarProps = {
-    accounts: AccountGetAllDto[],
-    appUser: LocalUser | undefined,
-}
 
-const NavBar = ({ accounts, appUser }: NavbarProps) => {
+const NavBar = () => {
+
+    const {appUser}=useContext(AppUserContext)
+    const {accounts}=useContext(AccountsContext)
     return (
         <Menu fixed='top' inverted>
             <Container>

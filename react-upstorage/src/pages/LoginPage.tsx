@@ -1,21 +1,58 @@
-import { useState } from "react"
-import { AuthLoginCommand, LocalUser } from "../types/AuthTypes"
+import { useContext, useState } from "react"
+import { AuthLoginCommand, LocalJwt } from "../types/AuthTypes"
 import { Button, Form, Grid, Header, Icon, Segment, Image } from "semantic-ui-react"
 import axios from "axios"
+import { getClaimsFromJwt } from "../utils/jwtHelper"
+import { toast } from "react-toastify"
+import { useNavigate } from "react-router-dom"
+import { AppUserContext } from "../context/StateContext"
 
-export type LoginPageProps = {
-    setAppUser: (appUser: LocalUser) => void
-}
+function LoginPage() {
 
-function LoginPage({ setAppUser }: LoginPageProps) {
+    const {setAppUser}=useContext(AppUserContext)
+
+    const navigate=useNavigate();
+
     const [authLoginCommand, setAuthLoginCommand] = useState<AuthLoginCommand>({ email: "", password: "" })
 
-    const handleSubmit = async(event: React.FormEvent) => {
-        const response=await axios.post("https://localhost:7109/api/Authentication/Login", authLoginCommand);
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
+
+        const BASE_URL=import.meta.env.VITE_API_URL;
+        const LOGIN_URL=`${BASE_URL}/Authentication/login`;
+        const response = await axios.post("https://localhost:7109/api/Authentication/Login", authLoginCommand);
 
         console.log(response)
-        if(response.status===200)   setAppUser({id:"123", firstName:"buket", lastName:"soyhan"});
+        if (response.status === 200) {
+            const accessToken = response.data.accessToken;
+            const { uid,
+                email,
+                given_name,
+                family_name,
+            } = getClaimsFromJwt(accessToken)
 
+            const expires:string=response.data.expires;
+
+            setAppUser({
+                id: uid,
+                email,
+                firstName: given_name,
+                lastName: family_name,
+                expires,
+                accessToken
+            })
+
+            const localJwt:LocalJwt={
+                accessToken,
+                expires
+            }
+
+            localStorage.setItem("upstorage_user", JSON.stringify(localJwt));
+            navigate("/")
+        }
+        else{
+            toast.error(response.statusText)
+        }
     }
     const handleInputChange = (inputName: string, inputValue: string) => {
         if (inputName == "email") setAuthLoginCommand({ ...authLoginCommand, email: inputValue })
@@ -23,8 +60,8 @@ function LoginPage({ setAppUser }: LoginPageProps) {
         else
             setAuthLoginCommand({ ...authLoginCommand, password: inputValue })
 
-            console.log(authLoginCommand);
-        
+        console.log(authLoginCommand);
+
     }
     const onGoogleLoginClick = (e: React.FormEvent) => {
         // Handle Google login
