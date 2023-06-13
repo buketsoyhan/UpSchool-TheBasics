@@ -13,5 +13,6 @@ namespace Application.Common.Interfaces
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         int SaveChanges();
+
     }
 }

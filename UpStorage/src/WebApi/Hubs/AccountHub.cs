@@ -2,7 +2,7 @@
 
 namespace WebApi.Hubs
 {
-    public class AccountHub : Hub
+    public class AccountHub:Hub
     {
     }
 }

@@ -6,12 +6,13 @@ using System.Threading;
 
 namespace Application.Features.Cities.Commands.Add
 {
-    public class CityAddCommandValidator : AbstractValidator<CityAddCommand>
+    public class CityAddCommandValidator:AbstractValidator<CityAddCommand>
     {
         private readonly IApplicationDbContext _applicationDbContext;
         public CityAddCommandValidator(IApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
+
             RuleFor(x => x.Name)
                 .NotEmpty()
                 .MaximumLength(150);
@@ -23,10 +24,10 @@ namespace Application.Features.Cities.Commands.Add
                 .WithMessage("The selected country does not exist.");
 
             RuleFor(x => x.Name)
-                .MustAsync((command, name, cancellationToken) =>
+                .MustAsync((command,name,cancellationToken) =>
                 {
                     return _applicationDbContext.Cities.AllAsync(x => x.Name.ToLower() != name.ToLower(),
-                       cancellationToken);
+                        cancellationToken);
                 });
 
             //RuleFor(x => x.CountryIds)

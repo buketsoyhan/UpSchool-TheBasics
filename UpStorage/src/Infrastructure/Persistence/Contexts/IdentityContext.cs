@@ -1,13 +1,15 @@
-﻿using Domain.Entities;
-using Domain.Identity;
+﻿using Domain.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using Domain.Entities;
 
 namespace Infrastructure.Persistence.Contexts
 {
     public class IdentityContext:IdentityDbContext<User,Role,string,UserClaim,UserRole,UserLogin,RoleClaim,UserToken>
     {
+
+
         public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
         {
 
@@ -15,10 +17,10 @@ namespace Infrastructure.Persistence.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Configurations
+            // Configurations
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            //Ignores
+            // Ignores
             modelBuilder.Ignore<Account>();
             modelBuilder.Ignore<Country>();
             modelBuilder.Ignore<City>();

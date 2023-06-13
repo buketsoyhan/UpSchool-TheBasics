@@ -6,7 +6,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Application.Features.Cities.Queries.GetAll
 {
-    public class CityGetAllQueryHandler : IRequestHandler<CityGetAllQuery, List<CityGetAllDto>>
+    public class CityGetAllQueryHandler:IRequestHandler<CityGetAllQuery,List<CityGetAllDto>>
     {
         private readonly IApplicationDbContext _applicationDbContext;
         private readonly IMemoryCache _memoryCache;
@@ -28,7 +28,7 @@ namespace Application.Features.Cities.Queries.GetAll
 
         public async Task<List<CityGetAllDto>> Handle(CityGetAllQuery request, CancellationToken cancellationToken)
         {
-            if (_memoryCache.TryGetValue(CITIES_KEY, out List<CityGetAllDto> cachedCities))
+            if (_memoryCache.TryGetValue(CITIES_KEY,out List<CityGetAllDto> cachedCities))
                 return cachedCities;
 
             var dbQuery = _applicationDbContext.Cities.AsQueryable();
@@ -40,7 +40,7 @@ namespace Application.Features.Cities.Queries.GetAll
             dbQuery = dbQuery.Include(x => x.Country);
 
             var cities = await dbQuery
-                .Select(x => MapToDto(x))
+                .Select(x=>MapToDto(x))
                 .ToListAsync(cancellationToken);
 
             _memoryCache.Set(CITIES_KEY, cities, _cacheOptions);

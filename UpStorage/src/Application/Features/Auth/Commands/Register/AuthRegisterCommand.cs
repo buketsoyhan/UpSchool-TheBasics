@@ -2,7 +2,7 @@
 
 namespace Application.Features.Auth.Commands.Register
 {
-    public class AuthRegisterCommand : IRequest<AuthRegisterDto>
+    public class AuthRegisterCommand:IRequest<AuthRegisterDto>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

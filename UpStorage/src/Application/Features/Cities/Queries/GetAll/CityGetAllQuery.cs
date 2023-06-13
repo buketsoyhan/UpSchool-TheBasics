@@ -10,6 +10,7 @@ namespace Application.Features.Cities.Queries.GetAll
         public CityGetAllQuery(int countryId, bool? isDeleted)
         {
             CountryId = countryId;
+
             IsDeleted = isDeleted;
         }
     }

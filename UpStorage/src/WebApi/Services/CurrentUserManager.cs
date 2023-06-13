@@ -3,7 +3,7 @@ using System.Security.Claims;
 
 namespace WebApi.Services
 {
-    public class CurrentUserManager : ICurrentUserService
+    public class CurrentUserManager:ICurrentUserService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 

@@ -11,6 +11,7 @@ namespace Application.Common.Models.Auth
         public AuthLoginRequest(string email, string password)
         {
             Email = email;
+
             Password = password;
         }
     }

@@ -2,7 +2,7 @@
 
 namespace Application.Features.Accounts.Queries.GetById
 {
-    public class AccountGetByIdQuery : IRequest<AccountGetByIdDto>
+    public class AccountGetByIdQuery:IRequest<AccountGetByIdDto>
     {
         public Guid Id { get; set; }
 

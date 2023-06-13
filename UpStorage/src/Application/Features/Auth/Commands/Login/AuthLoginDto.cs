@@ -1,15 +1,14 @@
-﻿using System;
-
-namespace Application.Features.Auth.Commands.Login
+﻿namespace Application.Features.Auth.Commands.Login
 {
     public class AuthLoginDto
     {
         public string AccessToken { get; set; }
         public DateTime Expires { get; set; }
 
-        public AuthLoginDto(string accessToken, DateTime expires) 
+        public AuthLoginDto(string accessToken, DateTime expires)
         {
-            AccessToken= accessToken;
+            AccessToken = accessToken;
+
             Expires = expires;
         }
     }

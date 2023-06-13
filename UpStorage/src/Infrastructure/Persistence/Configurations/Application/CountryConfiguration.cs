@@ -92,10 +92,11 @@ namespace Infrastructure.Persistence.Configurations.Application
             builder.Property(x => x.IsDeleted).IsRequired();
             builder.Property(x => x.IsDeleted).HasDefaultValueSql("0");
 
-            //Relationships
+            // Relationships
             builder.HasMany<City>(x => x.Cities)
                 .WithOne(x => x.Country)
                 .HasForeignKey(x => x.CountryId);
+
             builder.ToTable("Countries");
         }
     }

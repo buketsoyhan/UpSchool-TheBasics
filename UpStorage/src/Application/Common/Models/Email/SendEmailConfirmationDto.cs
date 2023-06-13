@@ -1,4 +1,4 @@
-﻿namespace Application.Common.Models.Email;
+namespace Application.Common.Models.Email;
 
 public class SendEmailConfirmationDto
 {

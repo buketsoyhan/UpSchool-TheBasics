@@ -6,11 +6,12 @@
 
         public ExcelBase64Dto()
         {
-
+            
         }
+
         public ExcelBase64Dto(string file)
         {
-            File = file;
+            File =file;
         }
     }
 }

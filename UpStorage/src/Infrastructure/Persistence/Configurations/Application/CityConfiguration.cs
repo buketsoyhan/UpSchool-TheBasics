@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Persistence.Configurations.Application
 {
-    public class CityConfiguration : IEntityTypeConfiguration<City>
+    public class CityConfiguration:IEntityTypeConfiguration<City>
     {
         public void Configure(EntityTypeBuilder<City> builder)
         {
@@ -53,7 +53,7 @@ namespace Infrastructure.Persistence.Configurations.Application
 
             builder.ToTable("Cities");
 
-            //Relationships
+            // Relationships
             //builder.HasOne<Country>(x => x.Country)
             //    .WithMany(x => x.Cities)
             //    .HasForeignKey(x => x.CountryId);

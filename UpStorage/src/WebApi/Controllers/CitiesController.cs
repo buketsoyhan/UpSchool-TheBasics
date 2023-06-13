@@ -2,6 +2,7 @@
 using Application.Features.Cities.Queries.GetAll;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Filters;
 
 namespace WebApi.Controllers
 {
@@ -18,6 +19,7 @@ namespace WebApi.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetAllAsync(CityGetAllQuery query)
         {
+            
             return Ok(await Mediator.Send(query));
         }
 
@@ -25,7 +27,7 @@ namespace WebApi.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
-            return Ok(await Mediator.Send(new CityGetAllQuery(id, null)));
+            return Ok(await Mediator.Send(new CityGetAllQuery(id,null)));
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using Application.Common.Models.Auth;
-using System.Globalization;
-
-namespace Application.Features.Auth.Commands.Register
+﻿namespace Application.Features.Auth.Commands.Register
 {
     public class AuthRegisterDto
     {
@@ -12,7 +9,7 @@ namespace Application.Features.Auth.Commands.Register
         public AuthRegisterDto(string email, string fullName, string activationToken)
         {
             Email = email;
-            FullName = fullName;
+            FullName =fullName;
             ActivationToken = activationToken;
         }
     }

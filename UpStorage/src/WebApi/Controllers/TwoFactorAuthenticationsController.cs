@@ -1,4 +1,4 @@
-﻿using Application.Common.Interfaces;
+using Application.Common.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers;
@@ -12,22 +12,22 @@ public class TwoFactorAuthenticationsController : Controller
         _twoFactorService = twoFactorService;
     }
 
-    [HttpPost("GenerateQR")]
+   [HttpPost("GenerateQR")]
     public IActionResult GenerateQR(string email)
     {
         var twoFactorDto = _twoFactorService.Generate(email);
-
-        return File(twoFactorDto.QrCodeImage, "image/png");
+        
+        return File(twoFactorDto.QrCodeImage,"image/png");
     }
-
+    
     [HttpPost("Generate")]
     public IActionResult Generate(string email)
     {
         var twoFactorDto = _twoFactorService.Generate(email);
-
+        
         return Ok(twoFactorDto.Key);
     }
-
+    
     [HttpPost("Validate")]
     public IActionResult Validate(string userCode)
     {
@@ -37,5 +37,5 @@ public class TwoFactorAuthenticationsController : Controller
 
         return BadRequest("Your code is not valid. Please try again for god sake.");
     }
-
+    
 }

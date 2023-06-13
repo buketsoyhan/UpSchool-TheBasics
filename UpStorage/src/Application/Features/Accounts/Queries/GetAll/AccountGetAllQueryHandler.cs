@@ -73,8 +73,8 @@ namespace Application.Features.Accounts.Queries.GetAll
         {
             return _applicationDbContext.Accounts.AsNoTracking()
                 .Where(x => x.UserId == _currentUserService.UserId)
-                .Include(x => x.AccountCategories)
-                .ThenInclude(x => x.Category);
+                .Include(x=>x.AccountCategories)
+                .ThenInclude(x=>x.Category);
         }
 
         private IQueryable<Account> GetCountQuery()

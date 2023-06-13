@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 
 namespace Application.Features.Accounts.Commands.Remove
 {
-    public class AccountRemoveCommandHandler : IRequestHandler<AccountRemoveCommand, Response<Guid>>
+    public class AccountRemoveCommandHandler:IRequestHandler<AccountRemoveCommand,Response<Guid>>
     {
         private readonly IApplicationDbContext _applicationDbContext;
         private readonly IAccountHubService _accountHubService;

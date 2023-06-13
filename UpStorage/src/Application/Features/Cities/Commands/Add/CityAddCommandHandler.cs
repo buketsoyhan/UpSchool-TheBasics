@@ -7,11 +7,10 @@ using Microsoft.Extensions.Localization;
 
 namespace Application.Features.Cities.Commands.Add
 {
-    public class CityAddCommandHandler : IRequestHandler<CityAddCommand, Response<int>>
+    public class CityAddCommandHandler:IRequestHandler<CityAddCommand,Response<int>>
     {
         private readonly IApplicationDbContext _applicationDbContext;
         private readonly IStringLocalizer<CommonLocalizations> _localizer;
-
         public CityAddCommandHandler(IApplicationDbContext applicationDbContext, IStringLocalizer<CommonLocalizations> localizer)
         {
             _applicationDbContext = applicationDbContext;
@@ -20,6 +19,7 @@ namespace Application.Features.Cities.Commands.Add
 
         public async Task<Response<int>> Handle(CityAddCommand request, CancellationToken cancellationToken)
         {
+            
             var city = new City()
             {
                 Name = request.Name,
@@ -35,7 +35,7 @@ namespace Application.Features.Cities.Commands.Add
 
             await _applicationDbContext.SaveChangesAsync(cancellationToken);
 
-            return new Response<int>(_localizer[CommonLocalizationKeys.City.Added, city.Name], city.Id);
+            return new Response<int>(_localizer[CommonLocalizationKeys.City.Added,city.Name],city.Id);
         }
     }
 }

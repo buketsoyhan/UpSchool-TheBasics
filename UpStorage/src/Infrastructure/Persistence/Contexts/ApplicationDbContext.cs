@@ -9,22 +9,23 @@ namespace Infrastructure.Persistence.Contexts
     public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<City> Cities { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<AccountCategory> AccountCategories { get; set; }
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
         {
             
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Configurations
+
+            // Configurations
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            //Ignores
+            // Ignores
             modelBuilder.Ignore<User>();
             modelBuilder.Ignore<Role>();
             modelBuilder.Ignore<UserRole>();

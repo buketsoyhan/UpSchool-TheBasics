@@ -8,7 +8,7 @@
 
         public Response()
         {
-
+            
         }
 
         public Response(string message)

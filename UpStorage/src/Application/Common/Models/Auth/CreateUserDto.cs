@@ -12,8 +12,11 @@ namespace Application.Common.Models.Auth
         public CreateUserDto(string firstName, string lastName, string email, string password)
         {
             FirstName = firstName;
+
             LastName = lastName;
+
             Email = email;
+
             Password = password;
         }
 
