@@ -3,6 +3,8 @@ import { Button, Divider, Grid, Header, Icon, Input, Segment, Select } from "sem
 import "./AccountsPage.css"
 import AccountCard from "../components/AccountCard";
 import { AccountsContext } from "../context/StateContext";
+import api from "../utils/axiosInstance";
+import { AccountGetAllDto } from "../types/AccountTypes";
 
 const options = [
   { key: '1', text: 'Ascending', value: 'true' },
@@ -13,6 +15,11 @@ const options = [
 function AccountsPage() {
   const {accounts,setAccounts}=useContext(AccountsContext)
   useEffect(() => {
+    const fetchAccounts=async()=>{
+      const response =await api.get("/Accounts");
+      setAccounts(response.data.items)
+    }
+    fetchAccounts();
     return;
   }, [])
 
@@ -64,7 +71,7 @@ function AccountsPage() {
       <Divider section />
       <Grid columns={3} stackable>
         {accounts.map((account, index) => (
-          <AccountCard account={account} index={index} onDeleteButtonClick={onDeleteButtonClick}
+          <AccountCard key={index} account={account} index={index} onDeleteButtonClick={onDeleteButtonClick}
             onEditButtonClick={onEditButtonClick} onPasswordVisibilityToggle={onPasswordVisibilityToggle}
           />
         ))}
