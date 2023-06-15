@@ -4,7 +4,9 @@ import "./AccountsPage.css"
 import AccountCard from "../components/AccountCard";
 import { AccountsContext } from "../context/StateContext";
 import api from "../utils/axiosInstance";
+import { PaginatedList } from "../types/GenericTypes";
 import { AccountGetAllDto } from "../types/AccountTypes";
+import { useNavigate } from "react-router-dom";
 
 const options = [
   { key: '1', text: 'Ascending', value: 'true' },
@@ -13,15 +15,18 @@ const options = [
 
 
 function AccountsPage() {
-  const {accounts,setAccounts}=useContext(AccountsContext)
+  const navigate=useNavigate();
+  const { accounts, setAccounts } = useContext(AccountsContext);
+
   useEffect(() => {
-    const fetchAccounts=async()=>{
-      const response =await api.get("/Accounts");
-      setAccounts(response.data.items)
+    const fetchAccounts = async () => {
+      const response = await api.get<PaginatedList<AccountGetAllDto>>("/Accounts");
+      setAccounts(response.data.items);
     }
+
     fetchAccounts();
     return;
-  }, [])
+  }, []);
 
   const onPasswordVisibilityToggle = (id: string) => {
     // Create a new array with the same accounts, but with the showPassword property of the account with the given id toggled
@@ -29,6 +34,7 @@ function AccountsPage() {
       if (account.id === id) {
         // Toggle the showPassword property
         return { ...account, ShowPassword: !account.showPassword };
+
       } else {
         // Leave the account unchanged
         return account;
@@ -41,7 +47,7 @@ function AccountsPage() {
 
 
   const onAddButtonClick = () => {
-    console.log('Add button clicked');
+    navigate("/accounts/add");
   }
 
   const onSearchInputChange = () => {

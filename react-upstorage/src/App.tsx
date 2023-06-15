@@ -15,6 +15,7 @@ import {useNavigate} from "react-router-dom";
 import {AppUserContext, AccountsContext} from "./context/StateContext.tsx";
 import {dummyAccounts} from "./utils/dummyData.ts";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import AccountsAddPage from './pages/AccountsAddPage.tsx';
 
 function App() {
 
@@ -69,6 +70,11 @@ function App() {
                                     <AccountsPage />
                                 </ProtectedRoute>
                             }/>
+                            <Route path="/accounts/add" element={
+                                <ProtectedRoute>
+                                    <AccountsAddPage />
+                                </ProtectedRoute>
+                            }/>
                             <Route path="/login" element={<LoginPage/>}/>
                             <Route path="*" element={<NotFoundPage/>}/>
                         </Routes>
@@ -77,8 +83,6 @@ function App() {
             </AppUserContext.Provider>
         </>
     )
-
 }
-
 
 export default App

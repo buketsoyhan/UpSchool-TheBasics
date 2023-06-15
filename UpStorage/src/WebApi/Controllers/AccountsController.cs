@@ -2,11 +2,13 @@
 using Application.Features.Accounts.Queries.GetAll;
 using Application.Features.Accounts.Queries.GetById;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers
 {
     public class AccountsController : ApiControllerBase
     {
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddAsync(AccountAddCommand command)
         {
