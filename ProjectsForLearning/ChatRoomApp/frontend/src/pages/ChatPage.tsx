@@ -109,17 +109,17 @@ function ChatPage() {
     return (
         <div>
             <Link to="/" style={{ position: 'absolute', top: 10, right: 10 }} onClick={handleLeave}>
-                Ayrıl
+                Leave
             </Link>
             <div style={{ display: 'flex' }}>
                 <div style={{ flex: 1, borderRight: '1px solid gray', paddingRight: '10px' }}>
-                    <h3>Online Kullanıcılar:</h3>
+                    <h3>Online Users:</h3>
                     {onlineUsers.map((user, index) => (
                         <p key={index}>{user}</p>
                     ))}
                 </div>
                 <div style={{ flex: 2, paddingLeft: '10px' }}>
-                    <h2>Chat Odası: {username || ''}</h2>
+                    <h2>Chat Room: {username || ''}</h2>
                     <div>
                         {messages.map((message, index) => (
                             <div
@@ -138,7 +138,7 @@ function ChatPage() {
                     </div>
                     <div>
                         <input type="text" value={inputText} onChange={handleInputChange} />
-                        <button onClick={handleSendMessage}>Gönder</button>
+                        <button onClick={handleSendMessage}>Send</button>
                     </div>
                 </div>
             </div>

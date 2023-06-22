@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HubConnectionBuilder, LogLevel, HubConnectionState } from '@microsoft/signalr';
+import "./HomePage.css"
 
 function HomePage() {
   const [inputText, setInputText] = useState('');
+
   const navigate = useNavigate();
   const connection = new HubConnectionBuilder()
-    .withUrl('https://localhost:7166/chathub') 
+    .withUrl('https://localhost:7166/chathub')
     .configureLogging(LogLevel.Information)
     .build();
 
-  const handleInputChange = (event:any) => {
+  const handleInputChange = (event: any) => {
     setInputText(event.target.value);
   };
 
@@ -24,17 +26,21 @@ function HomePage() {
         await connection.start();
       }
 
-      await connection.invoke('AddUserAsync', name); 
+      await connection.invoke('AddUserAsync', name);
     } catch (error) {
       console.error('Error connecting to SignalR hub:', error);
     }
   };
 
   return (
-    <div>
-      <h1>Upstorage Chat</h1>
-      <input type="text" value={inputText} onChange={handleInputChange} />
-      <button onClick={handleJoinChat}>Join Chat</button>
+    <div className="chat-container">
+      <div className="chat-page">
+        <div><h1>UpStorage Chat</h1></div>
+        <div className="input-container">
+          <input type="text" value={inputText} onChange={handleInputChange} className="rounded-input" placeholder="Username..." />
+          <button onClick={handleJoinChat} className="join-button">Join Chat</button>
+        </div>
+      </div>
     </div>
   );
 }
