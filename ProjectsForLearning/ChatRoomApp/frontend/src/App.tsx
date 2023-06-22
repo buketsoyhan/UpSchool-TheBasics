@@ -1,5 +1,4 @@
 import React from 'react'
-import './App.css'
 import ChatPage from './pages/ChatPage'
 import HomePage from './pages/HomePage'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'

@@ -1,5 +1,5 @@
 .chat-container {
-    background-image: url('public/img/background.jpg');
+    background-image: url('/img/bg.jpg');
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -30,15 +30,16 @@ h1 {
   }
 
 .join-button {
-    background-color: #e7a8bd;
+    background-color: #6a5fac !important;
     color: #FFFFFF;
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
     margin-left: 10px;
     cursor: pointer;
+    width:50px;
 }
 
 .join-button:hover {
-    background-color: #FF6E98; 
+    background-color: #6a72c9 !important; 
   }

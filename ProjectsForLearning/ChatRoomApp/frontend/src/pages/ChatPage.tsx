@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { HubConnectionBuilder, LogLevel, HubConnection } from '@microsoft/signalr';
+import "./ChatPage.css"
+
 
 type ChatParams = {
     name: string;
@@ -107,41 +109,39 @@ function ChatPage() {
     }, [connection, username]);
 
     return (
-        <div>
-            <Link to="/" style={{ position: 'absolute', top: 10, right: 10 }} onClick={handleLeave}>
+        <div className="main-background">
+            <div className="container">
+            <Link to="/" style={{ position: 'absolute', top: 10, right: 10 }} onClick={handleLeave} className="leave-button">
                 Leave
             </Link>
-            <div style={{ display: 'flex' }}>
-                <div style={{ flex: 1, borderRight: '1px solid gray', paddingRight: '10px' }}>
-                    <h3>Online Users:</h3>
+            <div className="content-container">
+                <div className="online-users">
+                    <div><h3>Online Users:</h3></div>
+                    <div>
                     {onlineUsers.map((user, index) => (
                         <p key={index}>{user}</p>
                     ))}
+                    </div>
                 </div>
-                <div style={{ flex: 2, paddingLeft: '10px' }}>
-                    <h2>Chat Room: {username || ''}</h2>
-                    <div>
+                <div className="chat-room">
+                    <h2>Chat Room</h2>
+                    <div className="message-container">
                         {messages.map((message, index) => (
                             <div
                                 key={index}
-                                style={{
-                                    backgroundColor: message.sender === username ? "#A0C49D" : "#E1ECC8",
-                                    padding: "10px",
-                                    marginBottom: "5px",
-                                    borderRadius: "5px",
-                                    width:"80%"
-                                }}
+                                className={`message ${message.sender === username ? 'sent' : ''}`}
                             >
                                 <strong>{message.sender}:</strong> {message.content}
                             </div>
                         ))}
                     </div>
-                    <div>
+                    <div className="input-container">
                         <input type="text" value={inputText} onChange={handleInputChange} />
                         <button onClick={handleSendMessage}>Send</button>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     );
 }

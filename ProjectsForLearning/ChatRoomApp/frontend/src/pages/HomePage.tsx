@@ -18,17 +18,22 @@ function HomePage() {
 
   const handleJoinChat = async () => {
     const name = inputText;
-    setInputText('');
-    navigate(`/chat/${name}`);
+    if (inputText != "") {
+      setInputText('');
+      navigate(`/chat/${name}`);
 
-    try {
-      if (connection.state === HubConnectionState.Disconnected) {
-        await connection.start();
+      try {
+        if (connection.state === HubConnectionState.Disconnected) {
+          await connection.start();
+        }
+  
+        await connection.invoke('AddUserAsync', name);
+      } catch (error) {
+        console.error('Error connecting to SignalR hub:', error);
       }
-
-      await connection.invoke('AddUserAsync', name);
-    } catch (error) {
-      console.error('Error connecting to SignalR hub:', error);
+    }
+    else{
+      alert("Please enter a name!");
     }
   };
 
@@ -38,7 +43,7 @@ function HomePage() {
         <div><h1>UpStorage Chat</h1></div>
         <div className="input-container">
           <input type="text" value={inputText} onChange={handleInputChange} className="rounded-input" placeholder="Username..." />
-          <button onClick={handleJoinChat} className="join-button">Join Chat</button>
+          <button onClick={handleJoinChat} className="join-button">Join</button>
         </div>
       </div>
     </div>
