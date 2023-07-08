@@ -2,12 +2,17 @@ import { NavLink } from "react-router-dom";
 import { Container, Menu, Image, Icon } from "semantic-ui-react";
 import { useContext } from "react";
 import { AccountsContext, AppUserContext } from "../context/StateContext";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 
 const NavBar = () => {
 
     const {appUser}=useContext(AppUserContext)
     const {accounts}=useContext(AccountsContext)
+
+    const countries = useSelector((state: RootState) => state.country.countries)
+    
     return (
         <Menu fixed='top' inverted>
             <Container>
@@ -17,6 +22,7 @@ const NavBar = () => {
                 </Menu.Item>
                 <Menu.Item as={NavLink} to="/">Home</Menu.Item>
                 <Menu.Item as={NavLink} to="/accounts">Accounts ({accounts.length}) </Menu.Item>
+                <Menu.Item as={NavLink} to="/countries">Countries ({countries.length}) </Menu.Item>
                 <Menu.Item as={NavLink} to="/dfef">Not Found</Menu.Item>
                 {
                     !appUser && <Menu.Item as={NavLink} to="/login" position="right" > <Icon name="sign-in"/> Login</Menu.Item>
