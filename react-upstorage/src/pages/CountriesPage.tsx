@@ -1,44 +1,51 @@
 import type { RootState } from '../store/store.ts';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAllCountries } from '../store/features/country/countrySlice';
-import { useEffect, useState } from "react";
-import { Button, Form, Header, Input, Segment } from "semantic-ui-react";
-import { addCity, removeCity } from "../store/features/city/citySlice.ts";
-import { CountriesGetAllQuery } from "../types/CountryTypes.ts";
+import {fetchAllCountries, removeCountry} from '../store/features/country/countrySlice';
+import {useEffect, useState} from "react";
+import {Button, Form, Header, Input, Segment} from "semantic-ui-react";
+import {addCity, removeCity} from "../store/features/city/citySlice.ts";
+import {CountriesGetAllQuery} from "../types/CountryTypes.ts";
 
 function CountriesPage() {
 
     const paginatedCountries = useSelector((state: RootState) => state.country.paginatedCountries);
-    const cities = useSelector((state: RootState) => state.city.cities);
+    const isLoading = useSelector((state: RootState) => state.country.isLoading);
+    const cities = useSelector((state:RootState) => state.city.cities);
 
     const dispatch = useDispatch()
 
     useEffect(() => {
 
-        const countriesGetAllQuery: CountriesGetAllQuery = {
-            pageNumber: 1,
-            pageSize: 10,
-        };
+        const fetchCountries = async () => {
 
-        fetchAllCountries(countriesGetAllQuery);
+            const countriesGetAllQuery:CountriesGetAllQuery = {
+                pageNumber:1,
+                pageSize:10,
+            };
 
-    }, []);
+            // @ts-ignore
+            await dispatch(fetchAllCountries(countriesGetAllQuery));
+        }
+
+        fetchCountries();
+
+    },[]);
 
     /*const [newCountry, setNewCountry] = useState<string>("");*/
 
     const [newCity, setNewCity] = useState<string>("");
 
-    /*   const handleCountrySubmit = () => {
-          /!* dispatch(addCountry(newCountry));*!/
-       };*/
+ /*   const handleCountrySubmit = () => {
+       /!* dispatch(addCountry(newCountry));*!/
+    };*/
 
     const handleCitySubmit = () => {
-        dispatch(addCity(newCity))
+       dispatch(addCity(newCity))
     };
 
-    /*    const handleCountryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-            setNewCountry(e.target.value);
-        };*/
+/*    const handleCountryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setNewCountry(e.target.value);
+    };*/
 
     const handleCityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNewCity(e.target.value);
@@ -46,23 +53,25 @@ function CountriesPage() {
 
     return (
         <>
-            <div>
-                <ul>
-                    {paginatedCountries && paginatedCountries.items.map((country) => (
-                        <li key={country.id}>{country.name}</li>
-                    ))}
-                </ul>
-            </div>
+       <div>
+           { isLoading }
+
+           <ul>
+               { paginatedCountries && paginatedCountries.items.map((country) => (
+                   <li key={country.id} onClick={async () => await dispatch(removeCountry(country.id))}>{country.name}</li>
+               )) }
+           </ul>
+       </div>
 
             <div>
                 <ul>
-                    {cities.map((city) => (
+                    { cities.map((city) => (
                         <li key={city} onClick={() => dispatch(removeCity(city))}>{city}</li>
-                    ))}
+                    )) }
                 </ul>
             </div>
 
-            {/* <Segment padded='very'>
+           {/* <Segment padded='very'>
                 <Header as='h1' textAlign='center' className="main-header">Add a New Country</Header>
                 <Form onSubmit={handleCountrySubmit}>
                     <Form.Field>
@@ -84,7 +93,7 @@ function CountriesPage() {
                 </Form>
             </Segment>
 
-        </>
+            </>
     );
 }
 
